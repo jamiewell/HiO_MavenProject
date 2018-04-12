@@ -2,14 +2,17 @@ package com
 
 import org.apache.spark.sql.SparkSession
 
-package object hyo {
+package object LoadingSavingInPC {
   object hk {
     def main(args: Array[String]): Unit = {
       val spark = SparkSession.builder().appName("hkProject").
         config("spark.master", "local").
         getOrCreate()
+
       //Load data
       var testData= spark.read.text("c:/spark/README.md")
+
+
       //Save data
       testData.
         coalesce(1). // 파일개수
@@ -17,6 +20,7 @@ package object hyo {
         mode("overwrite"). // 저장모드 append/overwrite
         save("test") // 저장파일명
       println("spark test completed")
+
     }
   }
 
